@@ -12,10 +12,10 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    - name: Build APK using stable Buildozer Docker image
+    - name: Build APK using Buildozer Docker image
       run: |
         docker run --rm -v ${{ github.workspace }}:/app \
-          -w /app kivy/buildozer:stable \
+          -w /app kivy/buildozer:latest \
           buildozer android debug
 
     - name: Upload built APK
