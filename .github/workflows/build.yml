@@ -1,24 +1,23 @@
-name: Build Kivy APK
+name: Build APK
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
+    - name: Checkout
       uses: actions/checkout@v3
 
-    - name: Build APK using Buildozer Docker image
-      run: |
-        docker run --rm -v ${{ github.workspace }}:/app \
-          -w /app kivy/buildozer:latest \
-          buildozer android debug
+    - name: Build APK using Buildozer Action
+      uses: Zenahr/buildozer-action@v1.2.0
+      with:
+        command: buildozer android debug
 
-    - name: Upload built APK
+    - name: Upload APK
       uses: actions/upload-artifact@v4
       with:
         name: kivy-apk
